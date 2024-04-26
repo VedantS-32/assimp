@@ -1,10 +1,10 @@
 -- From https://gist.github.com/Cannedfood/a71652022f066c8032f5a1c01919c55d
 
 project 'assimp'
-	kind 'SharedLib'
+	kind 'StaticLib'
     language "C++"
 	warnings 'off'
-    staticruntime "off"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .."/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .."/%{prj.name}")
@@ -47,7 +47,8 @@ project 'assimp'
 		'code/AssetLib/FBX/**',
 		-- 'code/AssetLib/glTF2/**',
 		-- 'code/AssetLib/glTF/**',
-		'code/AssetLib/Assbin/**' -- Very fast format to parse/write, useful for caching
+		'code/AssetLib/Assbin/**', -- Very fast format to parse/write, useful for caching
+		'include/assimp/*'
 	}
 	-- Importers
 	defines {
@@ -121,7 +122,7 @@ project 'assimp'
 	}
 
     filter "configurations:Debug"
-    runtime "release"
+    runtime "debug"
     symbols "on"
 
     filter "configurations:Release"

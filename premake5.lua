@@ -4,7 +4,7 @@ project 'assimp'
 	kind 'StaticLib'
     language "C++"
 	warnings 'off'
-    staticruntime "on"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .."/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .."/%{prj.name}")

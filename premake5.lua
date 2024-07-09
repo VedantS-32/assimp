@@ -5,12 +5,11 @@ project 'assimp'
     language "C++"
 	warnings 'off'
     staticruntime "off"
+    systemversion "latest"
 
     targetdir ("bin/" .. outputdir .."/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .."/%{prj.name}")
 
-    filter "system:windows"
-    systemversion "latest"
 
 	includedirs {
 		'.',
@@ -122,9 +121,9 @@ project 'assimp'
 	}
 
     filter "configurations:Debug"
-    runtime "debug"
-    symbols "on"
+    	runtime "debug"
+    	symbols "on"
 
     filter "configurations:Release"
-    runtime "release"
-    optimize "on"
+    	runtime "release"
+    	optimize "on"

@@ -100,6 +100,7 @@ SET( COMMON
   unit/Common/utBase64.cpp
   unit/Common/utHash.cpp
   unit/Common/utBaseProcess.cpp
+  unit/Common/utLogger.cpp
 )
 
 SET(Geometry 
@@ -167,6 +168,12 @@ SET( IMPORTERS
   unit/ImportExport/Terragen/utTerragenImportExport.cpp
   unit/ImportExport/Pbrt/utPbrtImportExport.cpp
 )
+
+if(ASSIMP_BUILD_USD_IMPORTER)
+  list( APPEND IMPORTERS
+    unit/utUSDImport.cpp
+  )
+endif()
 
 SET( MATERIAL
   unit/utMaterialSystem.cpp

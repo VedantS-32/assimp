@@ -1,8 +1,9 @@
 -- From https://gist.github.com/Cannedfood/a71652022f066c8032f5a1c01919c55d
 
 project 'assimp'
-	kind 'StaticLib'
+	kind 'SharedLib'
     language "C++"
+	cppdialect "C++20"
 	warnings 'off'
     staticruntime "off"
     systemversion "latest"
@@ -50,6 +51,21 @@ project 'assimp'
 		'code/AssetLib/Assbin/**', -- Very fast format to parse/write, useful for caching
 		'include/assimp/*'
 	}
+
+	defines {
+		"ASSIMP_BUILD_DLL_EXPORT",
+		-- "ASSIMP_DOUBLE_PRECISION", -- Don't enable this flag, you will get compile errors
+		"ASSIMP_BUILD_NO_USD_IMPORTER",
+		"MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0",
+		"ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1",
+		"RAPIDJSON_HAS_STDSTRING=1",
+		"RAPIDJSON_NOMEMBERITERATORCLASS",
+		"_SCL_SECURE_NO_WARNINGS",
+		"_CRT_SECURE_NO_WARNINGS",
+		"OPENDDLPARSER_BUILD",
+		"assimp_EXPORTS"
+	}
+
 	-- Importers
 	defines {
 		'ASSIMP_BUILD_NO_3D_IMPORTER',

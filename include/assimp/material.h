@@ -334,12 +334,17 @@ enum aiTextureType {
     aiTextureType_MAYA_SPECULAR_COLOR = 24,
     aiTextureType_MAYA_SPECULAR_ROUGHNESS = 25,
 
+    /** Anisotropy
+    * Simulates a surface with directional properties
+    */
+    aiTextureType_ANISOTROPY = 26,
+
 #ifndef SWIG
     _aiTextureType_Force32Bit = INT_MAX
 #endif
 };
 
-#define AI_TEXTURE_TYPE_MAX aiTextureType_MAYA_SPECULAR_ROUGHNESS
+#define AI_TEXTURE_TYPE_MAX aiTextureType_ANISOTROPY
 
 // -------------------------------------------------------------------------------
 /**
@@ -1073,6 +1078,11 @@ extern "C" {
 #define AI_MATKEY_EMISSIVE_INTENSITY "$mat.emissiveIntensity", 0, 0
 #define AI_MATKEY_USE_AO_MAP         "$mat.useAOMap", 0, 0
 
+// Anisotropy
+// ----------
+#define AI_MATKEY_ANISOTROPY_ROTATION "$mat.anisotropyRotation", 0, 0
+#define AI_MATKEY_ANISOTROPY_TEXTURE aiTextureType_ANISOTROPY, 0
+
 // ---------------------------------------------------------------------------
 // Pure key names for all texture-related properties
 //! @cond MATS_DOC_FULL
@@ -1535,7 +1545,7 @@ ASSIMP_API C_ENUM aiReturn aiGetMaterialFloatArray(
         const char *pKey,
         unsigned int type,
         unsigned int index,
-        float *pOut,
+        ai_real *pOut,
         unsigned int *pMax);
 
 // ---------------------------------------------------------------------------
@@ -1557,12 +1567,12 @@ ASSIMP_API C_ENUM aiReturn aiGetMaterialFloatArray(
 * @return Specifies whether the key has been found. If not, the output
 *   float remains unmodified.*/
 // ---------------------------------------------------------------------------
-inline aiReturn aiGetMaterialFloat(const C_STRUCT aiMaterial *pMat,
+static inline aiReturn aiGetMaterialFloat(const C_STRUCT aiMaterial *pMat,
         const char *pKey,
         unsigned int type,
         unsigned int index,
-        float *pOut) {
-    return aiGetMaterialFloatArray(pMat, pKey, type, index, pOut, (unsigned int *)0x0);
+        ai_real *pOut) {
+    return aiGetMaterialFloatArray(pMat, pKey, type, index, pOut, NULL);
 }
 
 // ---------------------------------------------------------------------------
@@ -1582,12 +1592,12 @@ ASSIMP_API C_ENUM aiReturn aiGetMaterialIntegerArray(const C_STRUCT aiMaterial *
  *
  * See the sample for aiGetMaterialFloat for more information.*/
 // ---------------------------------------------------------------------------
-inline aiReturn aiGetMaterialInteger(const C_STRUCT aiMaterial *pMat,
+static inline aiReturn aiGetMaterialInteger(const C_STRUCT aiMaterial *pMat,
         const char *pKey,
         unsigned int type,
         unsigned int index,
         int *pOut) {
-    return aiGetMaterialIntegerArray(pMat, pKey, type, index, pOut, (unsigned int *)0x0);
+    return aiGetMaterialIntegerArray(pMat, pKey, type, index, pOut, NULL);
 }
 
 // ---------------------------------------------------------------------------

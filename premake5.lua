@@ -137,6 +137,11 @@ project 'assimp'
 		'ASSIMP_BUILD_NO_ASSJSON_EXPORTER',
 	}
 
+	postbuildcommands {
+        ("{COPY} %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox")
+    }
+
+
     filter "configurations:Debug"
     	runtime "debug"
     	symbols "on"

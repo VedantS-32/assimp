@@ -137,10 +137,17 @@ project 'assimp'
 		'ASSIMP_BUILD_NO_ASSJSON_EXPORTER',
 	}
 
-	postbuildcommands {
-		("mkdir -p \"%{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox\"|| exit 0"),
-        ("cp %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox")
-    }
+	filter "action:vs*"
+		postbuildcommands {
+			("{MKDIR} %{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox"),
+			("{COPY} %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox")
+		}
+
+	filter "action:not vs*"
+		postbuildcommands {
+			("mkdir -p \"%{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox\"|| exit 0"),
+			("cp -f %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/CGraphicsSandbox")
+		}
 
 
     filter "configurations:Debug"
